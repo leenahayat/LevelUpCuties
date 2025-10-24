@@ -88,9 +88,15 @@ margin-right: 8px;
     font-weight: 700;
     color: var(--color-primary);
     line-height: 1;
-    /* align-items: left;  <-- CSS property nahi hai */
 }
 
+/* Branding Link Fix */
+nav .logo a {
+    text-decoration: none; 
+    color: inherit; 
+    display: flex; 
+    align-items: center;
+}
 
 
 nav ul {
@@ -397,15 +403,15 @@ footer {
     .cta-button { font-size: 0.9rem; padding: 6px 10px; }
     .section-title { font-size: 2rem; }
     
-    /* Navigation Bar Fixes */
+    /* === FIX 1: Navigation Bar & Hamburger Icon === */
     nav {
         /* FIX: Logo aur Hamburger ko alag-alag kinaron par rakhein */
         justify-content: space-between; 
-        padding: 15px 5%; /* Padding badha dein taake kinaron par jagah ho */
+        padding: 15px 5%; 
     }
 
-    /* FIX: Hamburger icon ko visible rakhein */
     .hamburger-menu {
+        /* FIX: Hamburger icon ko visible rakhein aur z-index high rakhein */
         display: flex; 
         flex-direction: column;
         justify-content: space-around;
@@ -413,7 +419,7 @@ footer {
         height: 20px;
         cursor: pointer;
         z-index: 1000;
-        /* margin-left: 90px; aur order: 2; remove kiye kyunki space-between use kiya hai */
+        /* margin-left: 90px remove kar diya */
     }
 
     .hamburger-menu .bar {
@@ -427,9 +433,7 @@ footer {
 
     /* Desktop Navigation Links ko Mobile par hide karein */
     nav ul { 
-        display: none; /* Desktop nav links ko hide kiya */
-        position: static; 
-        transform: none;
+        display: none; 
     } 
 
     /* Mobile Menu Container Styles */
@@ -480,21 +484,29 @@ footer {
         display: flex; 
     }
     
-    /* Quote Section Fixes */
-    /* FIX: Video Background height aur Quote Card padding adjust kiya */
+    /* === FIX 2: Quote Background Video Visibility === */
     .video-background { 
-        height: 40vh; /* Video height mobile ke liye kam kiya */
+        /* FIX: Height aur z-index verify kiya */
+        height: 60vh; 
+        z-index: -2; 
+    }
+    
+    .video-overlay {
+        z-index: -1;
     }
     
     .quote-body { 
+        /* FIX: min-height set kiya taake content video ke upar dikhe */
+        min-height: 60vh; 
         height: auto; 
-        min-height: 40vh; /* Minimum height set kiya taake video dikhe */
         padding-top: 50px;
         padding-bottom: 50px;
+        position: relative; /* Zaroori */
+        z-index: 1; /* Zaroori */
     }
     
     .quote-card { 
-        padding: 40px 20px; /* Padding kam ki mobile ke liye */
+        padding: 40px 20px; 
     }
     
     #quote { 
@@ -502,10 +514,9 @@ footer {
     }
 }
 
-/* Cleanup: Redundant mobile media query block remove kiya */
-/* @media (max-width: 768px) {} wala block */
 
-/* Existing Resource and Carousel styles (unchanged) */
+/* --- Remaining Styles (Unchanged but included for completeness) --- */
+
 .selflove-hero {
     min-height: 90vh;
     padding-top: 50px;
