@@ -1,4 +1,3 @@
-
 :root {
   --color-primary: #AD1457;       /* Dark Berry Pink - Titles, High Contrast */
   --color-secondary: #CA2461;     /* Medium Rose Pink */
@@ -89,7 +88,7 @@ margin-right: 8px;
     font-weight: 700;
     color: var(--color-primary);
     line-height: 1;
-    align-items: left;
+    /* align-items: left;  <-- CSS property nahi hai */
 }
 
 
@@ -363,23 +362,150 @@ footer {
 #sparkle-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
 
 
+/* Desktop/Tablet Media Query */
+@media (max-width: 992px) {
+    .dual-gallery-container {
+        flex-direction: column;
+        gap: 50px;
+    }
+    .gallery-column {
+        max-width: 600px;
+        width: 100%; 
+    }
+    
+    .resource-columns {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+    .resource-list {
+        min-width: auto;
+    }
+    .resource-list h3 {
+        text-align: center;
+    }
+}
+
+
+/* Mobile Media Query */
 @media (max-width: 768px) {
+    /* General Layout Adjustments */
     .split-content { flex-direction: column; gap: 30px; }
     .text-block, .image-block { max-width: 100%; }
     .gallery { flex-direction: column; align-items: center; }
     .gallery-item { width: 80%; max-width: 300px; }
-    nav ul { display: none; } 
-    nav { justify-content: space-between; }
     .cta-button { font-size: 0.9rem; padding: 6px 10px; }
     .section-title { font-size: 2rem; }
     
-    .quote-card { padding: 40px 50px; }
-    #quote { font-size: 1.3rem; }
-    .video-background { height: 60vh; }
+    /* Navigation Bar Fixes */
+    nav {
+        /* FIX: Logo aur Hamburger ko alag-alag kinaron par rakhein */
+        justify-content: space-between; 
+        padding: 15px 5%; /* Padding badha dein taake kinaron par jagah ho */
+    }
+
+    /* FIX: Hamburger icon ko visible rakhein */
+    .hamburger-menu {
+        display: flex; 
+        flex-direction: column;
+        justify-content: space-around;
+        width: 25px;
+        height: 20px;
+        cursor: pointer;
+        z-index: 1000;
+        /* margin-left: 90px; aur order: 2; remove kiye kyunki space-between use kiya hai */
+    }
+
+    .hamburger-menu .bar {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: var(--color-secondary); 
+        border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Desktop Navigation Links ko Mobile par hide karein */
+    nav ul { 
+        display: none; /* Desktop nav links ko hide kiya */
+        position: static; 
+        transform: none;
+    } 
+
+    /* Mobile Menu Container Styles */
+    .nav-links {
+        display: none; /* By default hidden */
+        position: absolute;
+        top: 100%; 
+        left: 0;
+        width: 100%;
+        background-color: var(--color-light-bg); 
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        z-index: 99;
+        flex-direction: column;
+        text-align: center;
+        padding: 5px 0;
+    }
+    
+    .nav-links ul {
+        flex-direction: column;
+        width: 100%;
+        position: static; 
+        transform: none;
+        display: flex !important; 
+    }
+
+    .nav-links ul li {
+        width: 100%;
+        padding: 10px 0;
+        margin: 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .nav-links ul li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 10px 0;
+    }
+    
+    .nav-links a.cta-button {
+        margin: 17px auto; 
+        width: 35%;
+    }
+
+    .nav-links.active {
+        display: flex; 
+    }
+    
+    /* Quote Section Fixes */
+    /* FIX: Video Background height aur Quote Card padding adjust kiya */
+    .video-background { 
+        height: 40vh; /* Video height mobile ke liye kam kiya */
+    }
+    
+    .quote-body { 
+        height: auto; 
+        min-height: 40vh; /* Minimum height set kiya taake video dikhe */
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+    
+    .quote-card { 
+        padding: 40px 20px; /* Padding kam ki mobile ke liye */
+    }
+    
+    #quote { 
+        font-size: 1.3rem; 
+    }
 }
 
+/* Cleanup: Redundant mobile media query block remove kiya */
+/* @media (max-width: 768px) {} wala block */
 
-
+/* Existing Resource and Carousel styles (unchanged) */
 .selflove-hero {
     min-height: 90vh;
     padding-top: 50px;
@@ -564,137 +690,4 @@ footer {
 .resource-list a:hover {
     color: var(--color-primary); 
     text-decoration: underline;
-}
-
-
-@media (max-width: 992px) {
-    .dual-gallery-container {
-        flex-direction: column;
-        gap: 50px;
-    }
-    .gallery-column {
-        max-width: 600px;
-        width: 100%; 
-    }
-    
-    .resource-columns {
-        flex-direction: column;
-        gap: 30px;
-        text-align: center;
-    }
-    .resource-list {
-        min-width: auto;
-    }
-    .resource-list h3 {
-        text-align: center;
-    }
-}
-
-
-
-@media (max-width: 768px) {
-    .hamburger-menu {
-        display: flex; 
-        flex-direction: column;
-        justify-content: space-around;
-        width: 25px;
-        height: 20px;
-        cursor: pointer;
-        order: 2; 
-        margin-left: 90px; 
-    }
-
-    .hamburger-menu .bar {
-        display: block;
-        width: 100%;
-        height: 3px;
-        background-color: var(--color-secondary); 
-        border-radius: 5px;
-        transition: all 0.3s ease-in-out;
-    }
-
-    nav {
-        position: sticky; 
-        justify-content: center; 
-    }
-
-    .nav-links {
-        display: none; 
-        position: absolute;
-        top: 100%; 
-        left: 0;
-        width: 100%;
-        background-color: var(--color-light-bg); 
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        z-index: 99;
-        flex-direction: column;
-        text-align: center;
-        padding: 5px 0;
-    }
-    
-  
-    .nav-links ul {
-        flex-direction: column;
-        width: 100%;
-        position: static; 
-        transform: none;
-    }
-
-
-    .nav-links ul li {
-        width: 100%;
-        padding: 10px 0;
-        margin: 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-    
-    .nav-links ul li:last-child {
-        border-bottom: none;
-    }
-
-    .nav-links a {
-        display: block;
-        padding: 10px 0;
-    }
-    
-
-    .nav-links a.cta-button {
-        margin: 17px auto; 
-        width: 35%;
-    }
-
-    .nav-links.active {
-        display: flex; 
-    }
-    
-
-@media (max-width: 768px) {}
-   
-    .nav-links ul {
-        flex-direction: column;
-        width: 100%;
-        position: static; 
-        transform: none;
-        
-        display: flex !important; 
-    }
-
-    .nav-links ul li {
-        width: 100%;
-        padding: 10px 0;
-        margin: 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-    
-    
-    .nav-links.active {
-        display: flex; 
-    }
-    
-
-    nav ul { 
-        display: none; 
-    } 
-    
-   
 }
