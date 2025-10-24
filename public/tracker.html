@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker | LevelUpCuties</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Lora:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="icon" type="image/png" href="images/Favicon.png">
+    
+    <style>
+       
+        .tracker-container {
+            max-width: 900px; 
+            margin: 40px auto 80px auto;
+            background: white;
+            border-radius: 15px; 
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1); 
+            padding: 30px 20px;
+        }
+
+        .tracker-header {
+            text-align: center; 
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--color-light-bg);
+        }
+        .tracker-header h2 {
+            font-size: 1.8rem;
+            color: var(--color-primary); 
+            margin: 0;
+            font-family: var(--font-heading);
+        }
+        .tracker-header p {
+            color: var(--color-text);
+            opacity: 0.7;
+            margin-top: 5px;
+            font-weight: 400;
+        }
+
+        .habit-table {
+            width: 100%;
+            border-collapse: separate; 
+            border-spacing: 0 8px; 
+            font-size: 0.95rem;
+        }
+
+        .habit-table th, .habit-table td {
+            padding: 10px 0px; 
+            text-align: center;
+            border: none; 
+        }
+        
+        .habit-table thead tr {
+            background-color: transparent; 
+            color: var(--color-primary);
+        }
+        .habit-table th {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+        .habit-table th:first-child {
+            text-align: left;
+            padding-left: 20px;
+            min-width: 150px;
+            color: var(--color-primary);
+        }
+
+        .habit-table tbody tr {
+            background-color: var(--color-light-peach); 
+            border-radius: 8px; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); 
+            transition: transform 0.2s;
+        }
+        .habit-table tbody tr:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .habit-table tr:nth-child(even) {
+            background-color: var(--color-light-bg); 
+        }
+
+        .habit-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--color-primary);
+            padding-left: 20px;
+            border-radius: 8px 0 0 8px; 
+        }
+        .habit-table td:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+
+        .check-box {
+            appearance: none; 
+            -webkit-appearance: none;
+            width: 18px; 
+            height: 18px;
+            border: 2px solid var(--color-secondary); 
+            border-radius: 4px;
+            cursor: pointer;
+            outline: none;
+            position: relative;
+            transition: background-color 0.2s, border-color 0.2s;
+            display: inline-block;
+            margin: 0;
+        }
+        .check-box:checked {
+            background-color: var(--color-contrast); 
+            border-color: var(--color-contrast);
+        }
+        .check-box:checked::before {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            line-height: 1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .print-btn {
+            background: var(--color-contrast); 
+            color: white; 
+            padding: 10px 20px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 30px;
+            transition: background 0.3s;
+        }
+        .print-btn:hover {
+            background: #507D69;
+        }
+
+        @media (max-width: 768px) {
+            .tracker-container {
+                padding: 15px;
+                margin: 20px auto 60px auto;
+                overflow-x: auto; 
+            }
+            .habit-table {
+                min-width: 650px; 
+            }
+        }
+
+        .month-selector {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .month-selector button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .month-selector button:hover {
+            background: var(--color-secondary);
+        }
+
+        .login-prompt {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: var(--color-light-peach);
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        .login-prompt h3 {
+            color: var(--color-primary);
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    
+    
+
+    <main>
+        <section class="content-section peach-bg" id="tracker">
+            <h1 class="section-title">Your Habit Tracker 📝</h1>
+            <p class="section-subtitle">Consistency is the secret sauce. Sign in to track and save your wins!</p>
+            
+            <div class="tracker-container">
+                <div class="tracker-header">
+                    <h2>Monthly Progress View</h2>
+                    <p>Select a month to see your personalized habit tracking dashboard.</p>
+                </div>
+                
+                <div class="month-selector">
+                    <button id="prev-month"> &lt; Prev </button>
+                    <select id="month-dropdown" style="padding: 10px; border-radius: 8px; border: 1px solid var(--color-primary); font-size: 1.1rem; min-width: 200px;">
+                        <option value="2025-10" selected>October 2025</option>
+                        <option value="2025-11">November 2025</option>
+                        <option value="2025-12">December 2025</option>
+                        <option value="2026-01">January 2026</option>
+                        <option value="2027-09">September 2027</option>
+                        <option value="2027-10">October 2027</option>
+                    </select>
+                    <button id="next-month"> Next &gt; </button>
+                </div>
+
+                <div id="monthly-tracker-view">
+                    <div class="login-prompt">
+                        <h3>Sign In to Save Your Progress!</h3>
+                        <p>Track every day for 2 years! Create an account to access your personalized, cloud-saved tracker.</p>
+                        <a href="signup.html" class="cta-button" style="background: var(--color-contrast);">Create Account Now</a>
+                    </div>
+                </div>
+                
+            
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © 2025 LevelUpCuties | All Rights Reserved 🍁
+    </footer>
+
+    </body>
+</html>

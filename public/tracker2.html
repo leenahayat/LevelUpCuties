@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker | LevelUpCuties</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Lora:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="icon" type="image/png" href="images/Favicon.png">
+    
+    <style>
+       
+        .tracker-container {
+            max-width: 7000px; 
+            margin: 40px auto 80px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .tracker-header {
+            text-align: left;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--color-light-bg);
+            padding-bottom: 15px;
+        }
+        .tracker-header h2 {
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            margin: 0;
+            font-family: var(--font-heading);
+            text-align: center;
+        }
+        .tracker-header p {
+            color: var(--color-text);
+            opacity: 0.8;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        
+        .habit-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+        }
+
+        .habit-table th, .habit-table td {
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid var(--color-light-bg);
+        }
+
+        .habit-table th {
+            background-color: var(--color-secondary);
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0; 
+        }
+        
+        .habit-table th:first-child {
+            text-align: left;
+            padding-left: 15px;
+            min-width: 150px;
+            background-color: var(--color-primary);
+        }
+
+        .habit-table td {
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+        
+        .habit-table tr:nth-child(even) td {
+            background-color: #F8F8F8; 
+        }
+
+        .habit-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+            color: var(--color-primary);
+            padding-left: 15px;
+        }
+
+        .check-box {
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+            accent-color: var(--color-contrast); 
+            margin: 0;
+        }
+
+        /* Button for Printable Version */
+        .print-btn {
+            background: var(--color-contrast); 
+            color: white; 
+            padding: 10px 20px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 30px;
+            transition: background 0.3s;
+        }
+        .print-btn:hover {
+            background: #507D69;
+        }
+
+        @media (max-width: 768px) {
+            .tracker-container {
+                padding: 15px;
+                margin: 20px auto 60px auto;
+                overflow-x: auto; 
+            }
+            .habit-table {
+                min-width: 650px; 
+            }
+        }
+     
+        .user-profile-container {
+            position: relative;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .user-icon {
+            font-size: 1.5rem;
+            color: white; 
+            background-color: white; 
+            border-radius: 50%;
+            padding: 5px 10px;
+            display: inline-block;
+            
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%; 
+            right: 0;
+            width: 180px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            padding: 10px;
+            z-index: 50; 
+            text-align: right;
+            display: none; 
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .user-dropdown.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        .dropdown-username {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin: 0 0 8px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        .logout-link {
+            display: block;
+            width: 100%;
+            padding: 5px;
+            text-align: center;
+            background-color: var(--color-secondary); 
+            color: white !important; 
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .logout-link:hover {
+            background-color: #d15a77;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="images/Favicon.png" alt="LevelUpCuties Logo">
+            <span class="logo-text">LevelUpCuties</span>
+        </div>
+        
+        <div id="user-profile" class="user-profile-container">
+                <span class="user-icon">👤</span> 
+                
+                <div class="user-dropdown">
+                    <p class="dropdown-username">Loading...</p>
+                    <a class="logout-link" href="/logout">Logout</a>
+                </div>
+        </div>    
+           
+    </nav>
+ 
+
+    <main>
+        <section class="content-section peach-bg" id="tracker">
+            <h1 class="section-title">Habit Tracker </h1>
+            <p class="section-subtitle">Consistency is the secret sauce. Track your tiny wins every single day!</p>
+            
+            <div class="month-selector" style="text-align: center; margin-bottom: 20px;">
+                <h3 style="color: var(--color-primary); margin-bottom: 10px; font-family: var(--font-heading);">Select Month to View:</h3>
+                <select id="month-select" style="padding: 8px 15px; border-radius: 5px; border: 1px solid #ccc; font-size: 1rem;">
+                    <option value="October 2025">October 2025</option>
+                    <option value="November 2025">November 2025</option>
+                    <option value="December 2025">December 2025</option>
+                    <option value="January 2026">January 2026</option>
+                    <option value="February 2026">February 2026</option>
+                    <option value="March 2026">March 2026</option>
+                    <option value="April 2026">April 2026</option>
+                    <option value="May 2026">May 2026</option>
+                    <option value="June 2026">June 2026</option>
+                    <option value="July 2026">July 2026</option>
+                    <option value="August 2026">August 2026</option>
+                    <option value="September 2026">September 2026</option>
+                    <option value="October 2026">October 2026</option>
+                </select>
+            </div>
+            <div class="tracker-container">
+                <div class="tracker-header">
+                    <h2 id="current-month-display">Monthly Progress: October 2025</h2>
+                    <p>Mark the checkbox when you complete the habit. Remember: progress, not perfection!</p>
+                </div>
+                
+                <table class="habit-table">
+                    <thead>
+                        <tr>
+                            <th>Habit</th>
+                            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th><th>31</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10 mins Self-Care</td>
+                            <td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td>
+                        </tr>
+                        <tr>
+                            <td>Learn/Read 15 mins</td>
+                            <td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td>
+                        </tr>
+                        <tr>
+                            <td>30 mins Focused Study</td>
+                            <td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td>
+                        </tr>
+                        <tr>
+                            <td>8 glasses Water</td>
+                            <td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td>
+                        </tr>
+                        <tr>
+                            <td>Bed by 11:30 PM</td>
+                            <td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td><td><input type="checkbox" class="check-box"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                
+                <div style="text-align: center;">
+                    <a href="#" class="print-btn" >Save your progress</a>
+                </div>
+            </div>
+
+            <div class="feedback-form-container" style="max-width: 600px; margin: 60px auto 40px auto; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);">
+                <h2 style="color: var(--color-primary); font-family: var(--font-heading); text-align: center; margin-bottom: 20px;">Give Us Your Feedback</h2>
+                <p style="text-align: center; color: #555; margin-bottom: 25px;">Did you find a bug or have an idea? We'd love to hear it!</p>
+
+                <form action="/submit-feedback" method="POST">
+                    <div style="margin-bottom: 15px;">
+                        <label for="feedback-type" style="display: block; font-weight: 500; margin-bottom: 5px;">Type:</label>
+                        <select id="feedback-type" name="type" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                            <option value="idea">New Feature Idea</option>
+                            <option value="bug">Bug Report</option>
+                            <option value="general">General Comment</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label for="feedback-text" style="display: block; font-weight: 500; margin-bottom: 5px;">Your Message:</label>
+                        <textarea id="feedback-text" name="message" required rows="5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; resize: vertical;"></textarea>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button type="submit" class="print-btn" style="background-color: var(--color-primary); border: none; cursor: pointer;">Submit Feedback</button>
+                    </div>
+                </form>
+            </div>
+            </section>
+    </main>
+
+    <footer>
+        © 2025 LevelUpCuties | All Rights Reserved 🍁
+    </footer>
+
+    <script src="tracker.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const monthSelect = document.getElementById('month-select');
+            const monthDisplay = document.getElementById('current-month-display');
+
+            monthDisplay.textContent = 'Monthly Progress: ' + monthSelect.value;
+            
+            monthSelect.addEventListener('change', (e) => {
+                monthDisplay.textContent = 'Monthly Progress: ' + e.target.value;
+                
+               
+            });
+            
+        });
+    </script>
+</body>
+</html>
