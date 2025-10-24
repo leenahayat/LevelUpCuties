@@ -141,10 +141,9 @@ app.post('/login', async (req, res) => {
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
         if (err) {
-            console.error('Logout error:', err);
-            return res.status(500).send('Could not log out.');
+            return res.redirect('/tracker.html');
         }
-        res.redirect('/index.html');
+        res.redirect('/');
     });
 });
 

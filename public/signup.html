@@ -71,12 +71,27 @@
             font-weight: 600;
             text-decoration: none;
         }
+        nav .logo a {
+            text-decoration: none; 
+            color: inherit; 
+            display: flex; 
+            align-items: center;
+        }
     </style>
 </head>
 <body>
+    <nav>
+    <div class="logo">
+            <a href="/"> 
+                <img src="images/Favicon.png" alt="LevelUpCuties Logo">
+                <span class="logo-text">LevelUpCuties</span>
+            </a>
+        </div>
+    
+    </nav>
     <div class="auth-section">
         <div class="auth-card">
-            <h1>Level Up!</h1>
+            <h1>Level Up Cuties!</h1>
             <p>Create your account to start glowing.</p>
             
             <form class="auth-form" method="POST" action="/register">
